@@ -22,16 +22,14 @@ class KunstmaanSentryExtension extends Extension
     {
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
-        $container->setParameter($this->getAlias(). '.enabled', $config['enabled']);
-        $container->setParameter($this->getAlias(). '.dsn', $config['dsn']);
+        $container->setParameter($this->getAlias() . '.enabled', $config['enabled']);
+        $container->setParameter($this->getAlias() . '.dsn', $config['dsn']);
 
-        if ($this->isConfigEnabled($container, $config)) {
-            if (empty($config['dsn'])) {
-                throw new InvalidArgumentException("The kunstmaan_sentry config array 'dsn' key is required.");
-            }
-            $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-            $loader->load('services.xml');
+        if (empty($config['dsn'])) {
+            throw new InvalidArgumentException("The kunstmaan_sentry config array 'dsn' key is required.");
         }
+        $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+        $loader->load('services.xml');
 
     }
 }
